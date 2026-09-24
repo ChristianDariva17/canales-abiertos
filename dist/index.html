@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Señales públicas y acceso a catálogos oficiales de películas en español, reunidos en un sitio simple y rápido." />
+  <meta name="theme-color" content="#07111f" />
+  <title>Señal Abierta · TV pública y cine</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Señal Abierta, inicio">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span>SEÑAL <strong>ABIERTA</strong></span>
+      </a>
+      <div class="topbar-meta">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>Señales públicas + cine</span>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">CENTRAL DE TELEVISIÓN · ESPAÑOL</p>
+          <h1 id="page-title">Todo lo abierto,<br /><em>en una sola señal.</em></h1>
+        <p class="intro-copy">Explorá canales públicos y catálogos oficiales de películas en español desde una interfaz limpia. Elegí una señal o una fuente para empezar.</p>
+        </div>
+        <div class="stats-card" aria-label="Resumen de la lista">
+          <span class="stats-label">CATÁLOGO ACTIVO</span>
+          <strong id="channel-count">—</strong>
+          <span class="stats-caption">canales disponibles</span>
+        </div>
+      </section>
+
+      <section class="workspace" aria-label="Reproductor y catálogo">
+        <div class="player-column">
+          <div class="player-frame" id="player-frame">
+            <div class="player-placeholder" id="player-placeholder">
+              <div class="placeholder-orbit" aria-hidden="true"><span></span><span></span><span></span></div>
+              <p class="player-kicker">LISTO PARA REPRODUCIR</p>
+              <h2>Elegí una señal<br />del catálogo</h2>
+              <p>El reproductor se activa al seleccionar un canal.</p>
+            </div>
+            <video id="video" controls playsinline preload="metadata" aria-label="Reproductor de señal de televisión"></video>
+          </div>
+          <div class="now-playing" id="now-playing" hidden>
+            <div>
+              <span class="live-label"><span class="live-pulse"></span>EN VIVO</span>
+              <h2 id="now-title">—</h2>
+              <p id="now-group">—</p>
+            </div>
+            <button class="ghost-button" id="stop-button" type="button">Detener</button>
+          </div>
+          <div class="player-note" id="player-note" role="status">Los streams públicos pueden tener geobloqueo o cambiar de dirección.</div>
+        </div>
+
+        <aside class="catalog-panel" aria-labelledby="catalog-title">
+          <div class="catalog-head">
+            <div>
+              <p class="eyebrow">EXPLORAR</p>
+              <h2 id="catalog-title">Catálogo</h2>
+            </div>
+            <span class="catalog-total" id="visible-count">—</span>
+          </div>
+          <div class="filters">
+            <label class="search-box">
+              <span class="sr-only">Buscar canal</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 5 5"></path></svg>
+              <input id="search-input" type="search" placeholder="Buscar canal…" autocomplete="off" />
+            </label>
+            <label class="select-box">
+              <span class="sr-only">Filtrar por categoría</span>
+              <select id="group-select"><option value="all">Todas las categorías</option></select>
+            </label>
+          </div>
+          <div class="channel-list" id="channel-list" aria-live="polite">
+            <div class="loading-state"><span class="loading-bar"></span><span class="loading-bar short"></span><span class="loading-bar"></span></div>
+          </div>
+          <div class="empty-state" id="empty-state" hidden>
+            <span aria-hidden="true">⌁</span>
+            <p>No encontramos canales con ese criterio.</p>
+            <button class="text-button" id="clear-filters" type="button">Limpiar filtros</button>
+          </div>
+        </aside>
+      </section>
+
+      <section class="directory-section" aria-labelledby="peru-title">
+        <div class="directory-heading">
+          <div>
+            <p class="eyebrow">PERÚ · FUENTES OFICIALES</p>
+            <h2 id="peru-title">Canales peruanos</h2>
+            <p>Señales nacionales y regionales con página oficial, reproductor web, iframe o YouTube.</p>
+          </div>
+          <div class="directory-count-card">
+            <strong id="peru-count">—</strong>
+            <span>fuentes verificadas</span>
+          </div>
+        </div>
+        <div class="directory-filters">
+          <label class="search-box">
+            <span class="sr-only">Buscar canal peruano</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 5 5"></path></svg>
+            <input id="peru-search" type="search" placeholder="Buscar canal, ciudad o región…" autocomplete="off" />
+          </label>
+          <label class="select-box">
+            <span class="sr-only">Filtrar por región</span>
+            <select id="peru-region-select"><option value="all">Todas las regiones</option></select>
+          </label>
+          <label class="select-box">
+            <span class="sr-only">Filtrar por tipo de fuente</span>
+            <select id="peru-type-select"><option value="all">Todas las fuentes</option></select>
+          </label>
+        </div>
+        <div class="directory-grid" id="peru-directory" aria-live="polite"></div>
+        <div class="empty-state directory-empty" id="peru-empty-state" hidden>
+          <span aria-hidden="true">⌁</span>
+          <p>No encontramos fuentes peruanas con ese criterio.</p>
+          <button class="text-button" id="clear-peru-filters" type="button">Limpiar filtros</button>
+        </div>
+        <p class="directory-note">Las señales web, iframe y YouTube se abren en su fuente oficial. Su disponibilidad puede cambiar según la programación, la región o los derechos de transmisión.</p>
+      </section>
+
+      <section class="directory-section movie-section" aria-labelledby="movies-title">
+        <div class="directory-heading">
+          <div>
+            <p class="eyebrow">PELÍCULAS · FUENTES OFICIALES</p>
+            <h2 id="movies-title">Cine en español</h2>
+            <p>Accedé a películas completas desde plataformas oficiales. Este sitio no descarga ni almacena videos.</p>
+          </div>
+          <div class="directory-count-card movie-count-card">
+            <strong id="movie-count">—</strong>
+            <span>fuentes de cine</span>
+          </div>
+        </div>
+        <div class="directory-filters movie-filters">
+          <label class="search-box">
+            <span class="sr-only">Buscar fuente de películas</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 5 5"></path></svg>
+            <input id="movie-search" type="search" placeholder="Buscar plataforma, país o cine…" autocomplete="off" />
+          </label>
+          <label class="select-box">
+            <span class="sr-only">Filtrar por acceso</span>
+            <select id="movie-access-select"><option value="all">Todos los accesos</option></select>
+          </label>
+          <label class="select-box">
+            <span class="sr-only">Filtrar por región</span>
+            <select id="movie-region-select"><option value="all">Todas las regiones</option></select>
+          </label>
+        </div>
+        <div class="directory-grid" id="movie-directory" aria-live="polite"></div>
+        <div class="empty-state directory-empty" id="movie-empty-state" hidden>
+          <span aria-hidden="true">⌁</span>
+          <p>No encontramos fuentes de películas con ese criterio.</p>
+          <button class="text-button" id="clear-movie-filters" type="button">Limpiar filtros</button>
+        </div>
+        <p class="directory-note">Los enlaces abren la fuente oficial en otra pestaña. El catálogo y la disponibilidad pueden variar según país, plan y derechos.</p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p><span>SEÑAL ABIERTA</span> · Catálogo público y cine oficial</p>
+      <p><a href="https://www.tdtchannels.com/lists/" target="_blank" rel="noreferrer">Fuente de la lista</a> · <a href="https://rnf.mtc.gob.pe/Television" target="_blank" rel="noreferrer">Registro MTC</a></p>
+    </footer>
+  </div>
+</body>
+</html>
