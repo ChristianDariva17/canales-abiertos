@@ -2,6 +2,8 @@
 
 Plataforma web para acceder a señales de televisión pública, canales en vivo y catálogos oficiales de cine en español de forma rápida y legal.
 
+🌐 **Sitio web en vivo (GitHub Pages):** [https://christiandariva17.github.io/canales-abiertos/](https://christiandariva17.github.io/canales-abiertos/)
+
 ## 🚀 Características
 
 - **Señales de TV Pública y Regionales:** Acceso a transmisiones oficiales nacionales (Perú, España, etc.) y señales regionales mediante reproductor HLS y enlaces directos verificados.
